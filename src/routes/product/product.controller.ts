@@ -1,7 +1,14 @@
 import type { Request, Response } from "express";
+import { prisma } from "~/service/db";
 
-async function httpGetProduct(_req: Request, res: Response) {
-    return res.status(200).json("hiya!");
+async function httpGetProduct(req: Request, res: Response) {
+    console.log(req.headers.authorization);
+    let user = await prisma.user.findUnique({
+        where: {
+            id: "1234",
+        },
+    });
+    return res.status(200).json(user);
 }
 
 async function httpGetProductById(_req: Request, res: Response) {}
